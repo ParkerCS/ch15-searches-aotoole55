@@ -16,11 +16,11 @@ for line in file:
 file.close()
 
 print(dictionary_list)
-
+'''
 print('---Linear Search---')
 alice_file = open("AliceInWonderLand200.txt", "r")
 line_number = 0
-'''
+
 for line in alice_file:
     words = split_line(line)
     line_number += 1
@@ -37,27 +37,28 @@ alice_file.close()
 print('---Binary Search---')
 
 
-alice_file = open("AliceInWonderLand200.txt", "r")
+file2 = open("AliceInWonderLand200.txt", "r")
+
 line_number = 0
 
-lower_bound = 0
-upper_bound = len(dictionary_list)-1
 
-found = False
-
-for line in alice_file:
+for line in file2:
     words = split_line(line)
     line_number += 1
     for word in words:
+        lower_bound = 0
+        upper_bound = len(dictionary_list) - 1
+        found = False
+        key = word.lower()
         while lower_bound <= upper_bound and not found:
             middle_position = (lower_bound + upper_bound) // 2
-            if dictionary_list[middle_position].lower() < word.lower():
-                lower_bound += middle_position + 1
-            elif dictionary_list[middle_position].lower() > word.lower():
-                upper_bound -= middle_position - 1
-            elif dictionary_list[middle_position].lower() == word.lower():
-                found = True
+            if dictionary_list[middle_position].lower() < key.lower():
+                lower_bound = middle_position + 1
+            elif dictionary_list[middle_position].lower() > key.lower():
+                upper_bound = middle_position - 1
             else:
-                print(word,'on line', line_number, 'was not found.')
+                found = True
+        if not found:
+            print(word,'on line', line_number, 'was not found.')
 
-alice_file.close()
+file2.close()
